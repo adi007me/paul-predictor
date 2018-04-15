@@ -1,14 +1,24 @@
 .login {
-    div {
-        margin: 20px;
-        
-        button {
-            border-radius: 5%;
-            min-width: 70px;
+    div:first {
+        margin: 20px;   
+    }
 
-            &:first {
-                margin-right: 2px;
-            }
+    button {
+        border-radius: 5%;
+        min-width: 70px;
+        margin: 5px;
+    }
+
+    .message {
+        // padding-bottom: 5px; 
+        // text-align: center;
+
+        &.error { 
+            color: red
+        }
+
+        &.success {
+            color: green;
         }
     }
 }

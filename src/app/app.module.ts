@@ -10,6 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { AppMaterialModule } from './app-material.module';
 
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './services/auth/auth.service';
+import { ChoicesService } from './services/choices/choices.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,9 +29,13 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    ChoicesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,23 +1,59 @@
 <div class="login">
-  <div>
-    <!-- <mat-form-field>
-      <input matInput placeholder="User Name">
+  <div *ngIf="!authProvider.authStatus && !authProvider.loading && !registerView">
+    <mat-form-field>
+      <input matInput placeholder="User Name" [(ngModel)]="username">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" placeholder="Password">
+      <input matInput type="password" placeholder="Password" [(ngModel)]="password">
     </mat-form-field>
     
     <div>
-      <button mat-raised-button color="primary">Login</button>
-      <button mat-raised-button color="secondary">Register</button>
-    </div> -->
+      <button mat-raised-button color="primary" (click)="login()">
+        Login
+      </button>
+      <button mat-raised-button color="secondary" (click)="showRegisterView()">
+        Register
+      </button>
+    </div>
   </div>
-  <div>
+  <div *ngIf="!authProvider.loading && authProvider.user">
     <div>
-      Welcome ! Aditya
+      Welcome {{ authProvider.user.name }}
     </div>
-    <div>
-        <button mat-raised-button color="primary">Logout</button>
+    <div margin>
+        <button mat-raised-button color="primary" (click)="logout()">Logout</button>
     </div>
+  </div>
+  <div *ngIf="authProvider.loading">
+    Loading ...
+  </div>
+  <div *ngIf="!authProvider.loading && !authProvider.authStatus && registerView">
+      <mat-form-field>
+          <input matInput placeholder="User Name" [(ngModel)]="registerInfo.userId">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="registerInfo.password">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="registerInfo.confirmPassword">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Name" [(ngModel)]="registerInfo.name">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Email" [(ngModel)]="registerInfo.emailId">
+        </mat-form-field>
+        
+        <div>
+          <button mat-raised-button color="primary" (click)="register()">
+            Register
+          </button>
+          <button mat-raised-button color="secondary" (click)="registrationCancelled()">
+            Cancel
+          </button>
+        </div>
+  </div>
+  <div class="message {{ message.type }}">
+      {{ message.text }}
   </div>
 </div>
