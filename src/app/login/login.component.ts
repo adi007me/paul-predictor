@@ -73,7 +73,6 @@ export class LoginComponent implements OnInit {
       this.setMessage('Confirm Password Invalid', 'error');
     } else {
       this.authProvider.register(this.registerInfo).subscribe(registerResult => {
-        console.log(registerResult);
         if(!registerResult.isSuccess) {
           if(registerResult.error.indexOf('Duplicate UserName') > -1) {
             this.setMessage('Please select another user name', 'error');

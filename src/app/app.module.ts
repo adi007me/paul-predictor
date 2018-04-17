@@ -13,13 +13,18 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth/auth.service';
 import { ChoicesService } from './services/choices/choices.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatchesModule } from './matches/matches.module';
+import { LeaguesService } from './services/leagues/leagues.service';
+import { TeamsService } from './services/teams/teams.service';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   entryComponents: [
     LoginComponent
@@ -30,11 +35,14 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatchesModule
   ],
   providers: [
     AuthService,
-    ChoicesService
+    ChoicesService,
+    LeaguesService,
+    TeamsService
   ],
   bootstrap: [AppComponent]
 })

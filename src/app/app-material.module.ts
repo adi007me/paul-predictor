@@ -10,7 +10,9 @@ import {
   MatMenuModule,
   MatButtonModule,
   MatDialogModule,
-  MatInputModule
+  MatInputModule,
+  MatCardModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -22,7 +24,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatMenuModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule,
+    MatSlideToggleModule
   ]
 })
 export class AppMaterialModule {}
