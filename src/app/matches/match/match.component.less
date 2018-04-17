@@ -1,0 +1,49 @@
+.paul-match {
+    .match {
+        font-family: Roboto,"Helvetica Neue",sans-serif;
+        border: 1pt solid #f2f3f4;
+
+        .row {
+            align-items: center;
+
+            &.header {
+                background-color: lightgray;
+            }
+        }
+
+        .col {
+            &.date {
+                font-size: 0.8rem;
+            }
+        }
+
+        .points {
+            margin: 5px;
+            width: 70px;
+            display: inline-block;
+            border-radius: 15%;
+            text-align: center;
+
+            &.winner {                
+                background-color: green;
+            }
+
+            &.looser {                
+                background-color: red;
+            }
+        }
+
+        .row.teams-info {
+            border-top: 1pt solid #f2f3f4;
+            border-bottom: 1pt solid #f2f3f4;
+
+            .col {
+                text-align: center;
+            }
+        }
+
+        .team-logo {
+            height: 50px;
+        }
+    }
+}

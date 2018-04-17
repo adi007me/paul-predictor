@@ -1,0 +1,32 @@
+<div class="paul-match">
+  <div class="container match">
+      <div class="row header">
+        <div class="col date">
+          {{ match.datetime | date:'EEEE' }}
+          , <strong>{{ match.datetime | date: 'MMMM d, y' }}</strong>
+        </div>
+        <div class="col-4">
+            <span class="points winner">
+              {{ match.points }} 
+            </span>
+        </div>
+      </div>  
+      <div class="row teams-info">
+        <div class="col">
+          <div>
+            <span>
+              {{ match.team1_id }}
+            </span>
+            <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
+          </div>
+        </div>
+        <div class="col-2">
+          <mat-slide-toggle></mat-slide-toggle>
+        </div>
+        <div class="col">
+            <img src="{{'/assets/icons/' + match.team2_id.toLowerCase() + '.png'}}" class="team-logo" />
+            {{ match.team2_id }}
+        </div>
+      </div>
+    </div>
+</div>

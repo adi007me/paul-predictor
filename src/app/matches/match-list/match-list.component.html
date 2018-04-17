@@ -1,0 +1,8 @@
+<div class="paul-match-list">
+  <div class="header">
+    {{header}}
+  </div>
+  <div *ngFor="let match of matches" class="match">
+    <paul-match [match]="match"></paul-match>
+  </div>
+</div>
