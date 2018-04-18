@@ -3,6 +3,9 @@ import { Match } from '../services/leagues/match';
 import { HttpClient } from '@angular/common/http';
 import { LeaguesService } from '../services/leagues/leagues.service';
 import { TeamsService } from '../services/teams/teams.service';
+import { AuthService } from '../services/auth/auth.service';
+import { Choice } from '../services/choices/choice';
+import { ChoicesService } from '../services/choices/choices.service';
 
 @Component({
   selector: 'paul-home',
@@ -15,9 +18,11 @@ export class HomeComponent implements OnInit {
   upcomingMatches: Match[];
   recentMatches: Match[];
   currentBet: Match[];
+  choicesArray: Choice[];
 
   constructor(private httpClient: HttpClient,
-      private leagues: LeaguesService, private teams: TeamsService) {
+      private leagues: LeaguesService, private teams: TeamsService, private authService: AuthService,
+        private choicesService: ChoicesService) {
     leagues.getLeagues().subscribe(leagues => {
       let matches = leagues[0].matches;
 
@@ -31,12 +36,12 @@ export class HomeComponent implements OnInit {
           var matchTimeAddHour = new Date(match.datetime);
           matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 2);
           match.choiceChangeDisabled = (matchTimeAddHour < currentTime);
-          match.currentChoice = false;
-          match.isSelected = false;
+          // match.currentChoice = false;
+          match.checked = false;
         });
 
         this.currentBet = this.matches.filter(m => !m.result && m.choiceChangeDisabled);
-        this.upcomingMatches = this.matches.filter(m => !m.result && !m.choiceChangeDisabled).slice(0, 2);
+        this.upcomingMatches = this.matches.filter(m => !m.result && !m.choiceChangeDisabled);
         this.completedMatches = this.matches.filter(m => m.result);
         this.recentMatches = this.matches.filter(m => m.result);
         this.recentMatches.sort(function(a, b){ 
@@ -45,12 +50,59 @@ export class HomeComponent implements OnInit {
 
           return (dt1 > dt2 ? 1 : -1);
          });
-         this.recentMatches = this.recentMatches.slice(0, 3);
+        this.recentMatches = this.recentMatches.slice(0, 3);
+
+        this.authService.loggedIn.subscribe(() => {
+          this.handleLogin();
+        });
+    
+        this.authService.loggedOut.subscribe(() => {
+          this.handleLogout();
+        });
+
+        if(authService.authStatus) {
+          this.getChoices();
+        }
       });
     });
   }
 
   ngOnInit() {
+    
   }
 
+  handleLogout() {
+    this.choicesArray = null;
+
+    this.matches.forEach(match => {
+      match.choice = '';
+      match.points = 0;
+      match.checked = false;
+      // match.currentChoice = false;
+    });
+  }
+
+  handleLogin() {
+    this.getChoices();
+  }
+
+  getChoices() {
+    this.choicesService.getChoices().subscribe(choices => {
+      this.choicesArray = choices;
+
+      this.choicesArray.forEach(choice => {
+        let match = this.matches.find(match => match.match_id === choice.match_id);
+        
+        if (match) {
+          match.choice = choice.choice;
+          match.points = choice.points;
+          match.checked = choice.choice == match.team2.shortName;
+          // match.currentChoice = match.isSelected;
+        }
+      });
+
+      let match = this.matches.find(match => match.match_id === 'match15');
+      console.log(match);
+    });    
+  }
 }

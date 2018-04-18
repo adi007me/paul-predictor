@@ -1,5 +1,13 @@
 <div class="paul-home">
-  <paul-match-list header="Locked Bet" [matches]="currentBet"></paul-match-list>
+  <paul-match-list header="Locked Bet" [matches]="currentBet" 
+    *ngIf="currentBet && currentBet.length > 0">
+  </paul-match-list>
 
-  <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches"></paul-match-list>
+  <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches" [displayOnly]="2" 
+    *ngIf="upcomingMatches && upcomingMatches.length > 0">
+  </paul-match-list>
+
+  <paul-match-list header="Recent Matches" [matches]="recentMatches" [displayOnly]="3"
+    *ngIf="recentMatches && recentMatches.length > 0">
+  </paul-match-list>
 </div>

@@ -15,6 +15,11 @@
             &.date {
                 font-size: 0.8rem;
             }
+
+            .winning-team {
+                border: 1pt solid green;
+                border-radius: 50%;
+            }
         }
 
         .points {
@@ -23,12 +28,13 @@
             display: inline-block;
             border-radius: 15%;
             text-align: center;
+            color: white;
 
-            &.winner {                
+            &.positive-points {                
                 background-color: green;
             }
 
-            &.looser {                
+            &.negative-points {                
                 background-color: red;
             }
         }

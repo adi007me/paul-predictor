@@ -12,12 +12,14 @@ import { TeamsService } from '../../services/teams/teams.service';
 export class MatchListComponent implements OnInit {  
   @Input() header: String;
   @Input() matches: Match[];
+  @Input() displayOnly: Number;
   
   constructor() { 
     
   }
 
   ngOnInit() {
+    
   }
 
 }

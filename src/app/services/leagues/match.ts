@@ -11,6 +11,6 @@ export interface Match {
     points: Number,
     choiceChangeDisabled: Boolean,
     currentChoice: Boolean,
-    isSelected: Boolean,
+    checked: Boolean,
     choice: String
 }

@@ -1,8 +1,11 @@
 <div class="paul-match-list">
-  <div class="header">
+  <div class="header container">
     {{header}}
   </div>
-  <div *ngFor="let match of matches" class="match">
+  <div *ngFor="let match of matches | slice: 0:displayOnly" class="match">
     <paul-match [match]="match"></paul-match>
+  </div>
+  <div *ngIf="matches && matches.length === 0" class="container">
+    Nothing to display
   </div>
 </div>
