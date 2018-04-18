@@ -12,5 +12,7 @@ export interface Match {
     choiceChangeDisabled: Boolean,
     currentChoice: Boolean,
     checked: Boolean,
-    choice: String
+    choice: String,
+    favTeam1: Number,
+    favTeam2: Number
 }
