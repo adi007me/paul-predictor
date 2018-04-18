@@ -97,12 +97,8 @@ export class HomeComponent implements OnInit {
           match.choice = choice.choice;
           match.points = choice.points;
           match.checked = choice.choice == match.team2.shortName;
-          // match.currentChoice = match.isSelected;
         }
       });
-
-      let match = this.matches.find(match => match.match_id === 'match15');
-      console.log(match);
     });    
   }
 }
