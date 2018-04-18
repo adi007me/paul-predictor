@@ -12,7 +12,8 @@ import {
   MatDialogModule,
   MatInputModule,
   MatCardModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatTabsModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -26,7 +27,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatDialogModule,
     MatInputModule,
     MatCardModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatTabsModule
   ]
 })
 export class AppMaterialModule {}

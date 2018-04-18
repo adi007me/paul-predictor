@@ -1,0 +1,26 @@
+<div class="paul-leader-board">
+  <div class="container">
+    <div class="row table-header">
+      <div class="col-1">
+        #
+      </div>
+      <div class="col">
+        Name
+      </div>
+      <div class="col">
+        Points
+      </div>
+    </div>
+    <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index">
+      <div class="col-1">
+        {{i + 1}}
+      </div>
+      <div class="col">
+        {{ leaderRow.name }}
+      </div>
+      <div class="col">
+        {{ leaderRow.totalPoints | number }}
+      </div>
+    </div>
+  </div>
+</div>

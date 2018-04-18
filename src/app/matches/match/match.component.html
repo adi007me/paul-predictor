@@ -5,9 +5,9 @@
           {{ match.datetime | date:'EEEE' }}
           , <strong>{{ match.datetime | date: 'MMMM d, y' }}</strong>
         </div>
-        <div class="col-4">
+        <div class="col-4 col-points">
             <span class="points" *ngIf="match.result && authService.authStatus" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
-              {{ match.points }} 
+              {{match.points >= 0 ? '+' : ''}}{{ match.points | number }} 
             </span>
         </div>
       </div>  

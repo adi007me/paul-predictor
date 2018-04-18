@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
           var matchTimeAddHour = new Date(match.datetime);
           matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 2);
           match.choiceChangeDisabled = (matchTimeAddHour < currentTime);
-          // match.currentChoice = false;
           match.checked = false;
         });
 
@@ -78,7 +77,6 @@ export class HomeComponent implements OnInit {
       match.choice = '';
       match.points = 0;
       match.checked = false;
-      // match.currentChoice = false;
     });
   }
 

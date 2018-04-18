@@ -17,6 +17,8 @@ import { MatchesModule } from './matches/matches.module';
 import { LeaguesService } from './services/leagues/leagues.service';
 import { TeamsService } from './services/teams/teams.service';
 import { HomeComponent } from './home/home.component';
+import { LeaderBoardComponent } from './leader-board/leader-board.component';
+import { LeaderBoardService } from './services/leader-board/leader-board.service';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    LeaderBoardComponent
   ],
   entryComponents: [
     LoginComponent
@@ -42,7 +45,8 @@ import { HomeComponent } from './home/home.component';
     AuthService,
     ChoicesService,
     LeaguesService,
-    TeamsService
+    TeamsService,
+    LeaderBoardService
   ],
   bootstrap: [AppComponent]
 })
