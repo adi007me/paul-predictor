@@ -18,7 +18,13 @@
               {{ match.team1_id }}
             </span>
             <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
+            
           </div>
+        </div>
+        <div class="col-1 col-bet">
+          <span class="bet" *ngIf="match.favTeam1 > -1">
+            ({{match.favTeam1}})
+          </span>
         </div>
         <div class="col-2">
           <mat-slide-toggle *ngIf="authService.authStatus"
@@ -28,6 +34,11 @@
           </mat-slide-toggle>
           
           <span *ngIf="!authService.authStatus">vs</span>
+        </div>
+        <div class="col-1 col-bet">
+          <span class="bet" *ngIf="match.favTeam2 > -1">
+            ({{match.favTeam2}})
+          </span>
         </div>
         <div class="col">
           <div [ngClass]="{'winning-team': match.team2_id===match.result}">

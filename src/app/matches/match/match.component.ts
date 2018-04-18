@@ -15,7 +15,7 @@ export class MatchComponent implements OnInit {
 
   @Input() match: Match;
 
-  constructor(private authService: AuthService, private choicesService: ChoicesService) { }
+  constructor(public authService: AuthService, private choicesService: ChoicesService) { }
 
   ngOnInit() {
     
