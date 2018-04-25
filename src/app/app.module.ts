@@ -19,6 +19,7 @@ import { TeamsService } from './services/teams/teams.service';
 import { HomeComponent } from './home/home.component';
 import { LeaderBoardComponent } from './leader-board/leader-board.component';
 import { LeaderBoardService } from './services/leader-board/leader-board.service';
+import { BetterListService } from './services/better-list/better-list.service';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { LeaderBoardService } from './services/leader-board/leader-board.service
     ChoicesService,
     LeaguesService,
     TeamsService,
-    LeaderBoardService
+    LeaderBoardService,
+    BetterListService
   ],
   bootstrap: [AppComponent]
 })
