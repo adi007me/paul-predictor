@@ -11,6 +11,7 @@ import { BetterListService } from '../../services/better-list/better-list.servic
 export class BettersListComponent implements OnInit {
   bets: Bets;
   loading: Boolean;
+  isExpanded: Boolean;
 
   @Input() match: Match;
 
@@ -18,9 +19,11 @@ export class BettersListComponent implements OnInit {
 
   ngOnInit() {
     this.loading = false;
+    this.isExpanded = false;
   }
 
   showBets() {
+    this.isExpanded = !this.isExpanded;
     if (this.bets) {
       return;
     }
