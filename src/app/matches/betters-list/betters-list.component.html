@@ -1,0 +1,35 @@
+<div class="betters-list">
+  <div class="container">
+    <div class="header" (click)="showBets()">
+      Predictions
+    </div>
+    <div class="body" [ngClass]="{ 'expanded': isExpanded, 'collapsed': !isExpanded }">
+      <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
+      </div>
+  
+      <div *ngIf="!loading">
+        <div class="row better-team1">
+          <div class="col-3">
+            {{match.team1_id}} :
+          </div>
+          <div class="col" *ngIf="bets">
+            <span *ngFor="let better of bets.team1">
+              {{ better.name | titlecase }},
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            {{match.team2_id}} :
+          </div>
+          <div class="col" *ngIf="bets">
+            <span *ngFor="let better of bets.team2">
+              {{ better.name | titlecase }},
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
