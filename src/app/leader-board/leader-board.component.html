@@ -4,22 +4,40 @@
       <div class="col-1">
         #
       </div>
-      <div class="col">
+      <div class="col-5">
         Name
       </div>
-      <div class="col">
-        Points
+      <div class="col-2">
+        P
+      </div>
+      <div class="col-1">
+        W
+      </div>
+      <div class="col-1">
+        L
+      </div>
+      <div class="col-1">
+        M
       </div>
     </div>
     <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index">
       <div class="col-1">
         {{i + 1}}
       </div>
-      <div class="col">
+      <div class="col-5">
         {{ leaderRow.name }}
       </div>
-      <div class="col">
-        {{ leaderRow.totalPoints | number }}
+      <div class="col-2">
+        {{ leaderRow.totalPoints | number:'0.1-1' }}
+      </div>
+      <div class="col-1">
+        {{ leaderRow.wins }}
+      </div>
+      <div class="col-1">
+        {{ leaderRow.losses }}
+      </div>
+      <div class="col-1">
+        {{ leaderRow.totalMatches }}
       </div>
     </div>
   </div>
