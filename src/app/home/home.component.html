@@ -1,6 +1,10 @@
 <div class="paul-home">
 
-    <mat-tab-group>
+    <div *ngIf="loading" class="loading">
+      <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
+    </div>
+
+    <mat-tab-group *ngIf="!loading">
       <mat-tab label="Home">
 
         <paul-match-list header="Locked Bet" [matches]="currentBet" 

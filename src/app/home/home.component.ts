@@ -20,13 +20,18 @@ export class HomeComponent implements OnInit {
   currentBet: Match[];
   choicesArray: Choice[];
 
+  loading: Boolean;
+
   constructor(private httpClient: HttpClient,
       private leagues: LeaguesService, private teams: TeamsService, private authService: AuthService,
         private choicesService: ChoicesService) {
+
+    this.loading = true;
+    
     leagues.getLeagues().subscribe(leagues => {
       let matches = leagues[0].matches;
 
-      this.matches = matches; 
+      this.matches = matches;
       var currentTime = new Date();
       this.teams.getTeams().subscribe(teams => {
         this.matches.forEach(match => {
@@ -62,6 +67,8 @@ export class HomeComponent implements OnInit {
         if(authService.authStatus) {
           this.getChoices();
         }
+
+        this.loading = false;
       });
     });
   }

@@ -12,13 +12,18 @@ import { MatSlideToggleChange } from '@angular/material';
 export class MatchComponent implements OnInit {
   authStatus: Boolean;
   error: String;
+  isSemiFinal: Boolean;
+  isFinal: Boolean;
 
   @Input() match: Match;
 
-  constructor(public authService: AuthService, private choicesService: ChoicesService) { }
+  constructor(public authService: AuthService, private choicesService: ChoicesService) {
+    
+  }
 
   ngOnInit() {
-    
+    this.isSemiFinal = this.match.match_id.includes('sm');
+    this.isFinal = this.match.match_id.includes('final');
   }
 
   choiceChanged(match: Match, matSlideToggleChange: MatSlideToggleChange) {

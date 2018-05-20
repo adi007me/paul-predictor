@@ -1,6 +1,6 @@
 <div class="paul-match">
   <div class="container match">
-      <div class="row header">
+      <div class="row header" [ngClass]="{'header-semiFinal': isSemiFinal, 'header-Final': isFinal}">
         <div class="col date">
           {{ match.datetime | date:'EEEE' }}
           , <strong>{{ match.datetime | date: 'MMMM d, y' }}</strong>
