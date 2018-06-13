@@ -14,11 +14,11 @@
       <div class="row teams-info">
         <div class="col">
           <div [ngClass]="{'winning-team': match.team1_id===match.result}">
+            
+            <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
             <span>
               {{ match.team1_id }}
             </span>
-            <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
-            
           </div>
         </div>
         <div class="col-1 col-bet">
@@ -26,12 +26,10 @@
             ({{match.favTeam1}})
           </span>
         </div>
-        <div class="col-2">
-          <mat-slide-toggle *ngIf="authService.authStatus"
+        <div class="col-2 choice-slider">
+          <mat-slider min="0" max="2" step="1" [(ngModel)]="match.sliderValue" *ngIf="authService.authStatus"
             (change)="choiceChanged(match, $event)"
-            [(ngModel)]="match.checked"
-            disabled="{{match.choiceChangeDisabled}}">
-          </mat-slide-toggle>
+            disabled="{{match.choiceChangeDisabled}}"></mat-slider>
           
           <span *ngIf="!authService.authStatus">vs</span>
         </div>

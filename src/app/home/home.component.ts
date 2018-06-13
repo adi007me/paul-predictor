@@ -32,16 +32,16 @@ export class HomeComponent implements OnInit {
       let matches = leagues[0].matches;
 
       this.matches = matches;
-      var currentTime = new Date();
+      let currentTime = new Date();
       this.teams.getTeams().subscribe(teams => {
         this.matches.forEach(match => {
           match.team1 = teams.find(team => team.shortName === match.team1_id);
           match.team2 = teams.find(team => team.shortName === match.team2_id);
 
-          var matchTimeAddHour = new Date(match.datetime);
-          matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 2);
+          let matchTimeAddHour = new Date(match.datetime);
+          matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 1);
           match.choiceChangeDisabled = (matchTimeAddHour < currentTime);
-          match.checked = false;
+          match.sliderValue = 1;
         });
 
         this.currentBet = this.matches.filter(m => !m.result && m.choiceChangeDisabled);
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
     this.matches.forEach(match => {
       match.choice = '';
       match.points = 0;
-      match.checked = false;
+      match.sliderValue = 1;
     });
   }
 
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
         if (match) {
           match.choice = choice.choice;
           match.points = choice.points;
-          match.checked = choice.choice == match.team2.shortName;
+          match.sliderValue = this.leagues.getSliderValue(match);
         }
       });
     });    

@@ -10,8 +10,12 @@
   
       <div *ngIf="!loading">
         <div class="row better-team1">
-          <div class="col-3">
-            {{match.team1_id}} :
+          <div class="col-4">
+            {{match.team1_id}}
+            <span *ngIf="bets">
+              ({{bets.team1.length}})
+            </span>
+            :
           </div>
           <div class="col" *ngIf="bets">
             <span *ngFor="let better of bets.team1">
@@ -19,12 +23,30 @@
             </span>
           </div>
         </div>
-        <div class="row">
-          <div class="col-3">
-            {{match.team2_id}} :
+        <div class="row better-team2">
+          <div class="col-4">
+            {{match.team2_id}}
+            <span *ngIf="bets">
+              ({{bets.team2.length}})
+            </span>
+            :
           </div>
           <div class="col" *ngIf="bets">
             <span *ngFor="let better of bets.team2">
+              {{ better.name | titlecase }},
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Draw
+            <span *ngIf="bets">
+              ({{bets.draw.length}})
+            </span>
+            :
+          </div>
+          <div class="col" *ngIf="bets">
+            <span *ngFor="let better of bets.draw">
               {{ better.name | titlecase }},
             </span>
           </div>
