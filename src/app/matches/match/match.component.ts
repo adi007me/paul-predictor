@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Match } from '../../services/leagues/match';
 import { AuthService } from '../../services/auth/auth.service';
 import { ChoicesService } from '../../services/choices/choices.service';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSliderChange } from '@angular/material';
+import { LeaguesService } from '../../services/leagues/leagues.service';
 
 @Component({
   selector: 'paul-match',
@@ -17,7 +18,7 @@ export class MatchComponent implements OnInit {
 
   @Input() match: Match;
 
-  constructor(public authService: AuthService, private choicesService: ChoicesService) {
+  constructor(public authService: AuthService, private choicesService: ChoicesService, private leagues : LeaguesService) {
     
   }
 
@@ -26,40 +27,30 @@ export class MatchComponent implements OnInit {
     this.isFinal = this.match.match_id.includes('final');
   }
 
-  choiceChanged(match: Match, matSlideToggleChange: MatSlideToggleChange) {
+  choiceChanged(match: Match, matSliderChange: MatSliderChange) {
     let newChoice = null;
     const matchToUpdate = match;
     let choiceChangeDisabled = false;
 
     const currentTime = new Date();
-    let matchTimeAddHour = new Date(match.datetime);
-    matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 2);
-    choiceChangeDisabled = (matchTimeAddHour < currentTime);
+    let matchTime = new Date(match.datetime);
     
-    if (choiceChangeDisabled) {
-      this.error = 'Choice change is disabled 2 hours before the match';
-      matchToUpdate.checked = !matSlideToggleChange.checked;
 
+    let oldSliderValue = this.leagues.getSliderValue(match);
+
+    if(matSliderChange.value === oldSliderValue) {
       return;
     }
 
-    if((matSlideToggleChange.checked && match.choice === match.team2_id) ||
-        (!matSlideToggleChange.checked && match.choice === match.team1_id)) {
-      return;
-    } 
-
-    if(matSlideToggleChange.checked) {
-      newChoice = match.team2.shortName
-    } else {
-      newChoice = match.team1.shortName;
-    }
+    newChoice = this.leagues.getChoiceValue(matSliderChange.value, match);
 
     this.choicesService.updateChoice({match_id: match.match_id, choice: newChoice}).subscribe(response => {
       matchToUpdate.choice = response.choice;
+      matchToUpdate.sliderValue = matSliderChange.value;
     }
     ,
     error => {
-      matchToUpdate.checked = !matSlideToggleChange.checked;
-    });    
+      matchToUpdate.sliderValue = this.leagues.getSliderValue(matchToUpdate);
+    });
   }
 }

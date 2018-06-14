@@ -10,9 +10,9 @@ export interface Match {
     result: String,
     points: Number,
     choiceChangeDisabled: Boolean,
-    currentChoice: Boolean,
-    checked: Boolean,
+    currentChoice: Boolean
     choice: String,
     favTeam1: Number,
-    favTeam2: Number
+    favTeam2: Number,
+    sliderValue: Number
 }

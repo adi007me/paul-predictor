@@ -14,7 +14,8 @@ import {
   MatCardModule,
   MatSlideToggleModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSliderModule
 } from '@angular/material';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -30,7 +31,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatCardModule,
     MatSlideToggleModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSliderModule
   ]
 })
 export class AppMaterialModule {}
