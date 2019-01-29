@@ -83,9 +83,10 @@ export class AuthService {
     if(user.name && user.password && user.userId) {
       return this.http.post(Constants.BASE_URL + 'register',
         {
+          emailId: user.emailId,
           name: user.name,
-          userId: user.userId,
-          password: user.password
+          password: user.password,
+          userId: user.userId
         },
         { withCredentials: true })
         .map(response => {

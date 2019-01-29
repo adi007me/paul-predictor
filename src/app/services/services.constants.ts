@@ -5,7 +5,7 @@ export class Constants {
         if (environment.production) {
             return 'https://paul-api.cfapps.io/';
         } else {
-            return 'http://localhost:1337/';
+            return 'http://localhost:3000/';
         }
     }
 }

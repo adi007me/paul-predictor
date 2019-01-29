@@ -19,9 +19,10 @@ export class LoginComponent implements OnInit {
   
   constructor(public authProvider: AuthService) {
     this.registerInfo = {
+      confirmPassword: '',
+      emailId: '',
       name: '',
       password: '',
-      confirmPassword: '',
       userId: ''
     };
 
@@ -69,8 +70,12 @@ export class LoginComponent implements OnInit {
       this.setMessage('Please provide all info', 'error');
     }
 
+    const emailRegex = new RegExp('^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$');
+
     if (this.registerInfo && this.registerInfo.password !== this.registerInfo.confirmPassword) {
       this.setMessage('Confirm Password Invalid', 'error');
+    } else if(!emailRegex.test(this.registerInfo.emailId)) {
+      this.setMessage('Invalid Email Format', 'error');
     } else {
       this.authProvider.register(this.registerInfo).subscribe(registerResult => {
         if(!registerResult.isSuccess) {
