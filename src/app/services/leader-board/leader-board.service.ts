@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { LeaderBoard } from './leader-board';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from '../services.constants';
