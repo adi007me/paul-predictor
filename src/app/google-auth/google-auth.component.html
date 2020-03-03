@@ -1,0 +1,7 @@
+<a *ngIf="!loggedIn" class="profile-icon">
+  <img id="googleSignIn" src='https://image.flaticon.com/teams/slug/google.jpg' />
+</a>
+
+<a id="btnProfile" *ngIf="loggedIn" class="profile-icon">
+  <img src='{{profileInfo.imageUrl}}' (click)="accountInfoPopover()"/>
+</a>
