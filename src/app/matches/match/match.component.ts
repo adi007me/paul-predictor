@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Match } from '../../services/leagues/match';
 import { AuthService } from '../../services/auth/auth.service';
 import { ChoicesService } from '../../services/choices/choices.service';
-import { MatSliderChange } from '@angular/material';
+import { MatSliderChange } from '@angular/material/slider';
 import { LeaguesService } from '../../services/leagues/leagues.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class MatchComponent implements OnInit {
   @Input() match: Match;
 
   constructor(public authService: AuthService, private choicesService: ChoicesService, private leagues : LeaguesService) {
-    
+
   }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class MatchComponent implements OnInit {
 
     const currentTime = new Date();
     let matchTime = new Date(match.datetime);
-    
+
 
     let oldSliderValue = this.leagues.getSliderValue(match);
 
