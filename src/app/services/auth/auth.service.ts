@@ -1,13 +1,16 @@
+
+import {of as observableOf,  Observable } from 'rxjs';
+
+import {map, catchError} from 'rxjs/operators';
 import { Injectable, EventEmitter } from '@angular/core';
 import { User } from './user';
 import { Constants } from '../services.constants';
-import { Observable } from 'rxjs/Observable';
 import { RegisterInfo } from './registerInfo';
 import { RegisterResult } from './registerResult';
 
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
+
+
+
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
@@ -38,15 +41,15 @@ export class AuthService {
       password: password
     },
     { withCredentials: true }
-    ).map(response => {
+    ).pipe(map(response => {
       this.getUser();
       this.authStatus = Boolean(response);
 
       return Boolean(response);
-    }).catch(err => {
+    }),catchError(err => {
       this.loading = false;
-      return Observable.of(false);
-    });
+      return observableOf(false);
+    }),);
   }
 
   logout() {
@@ -87,23 +90,23 @@ export class AuthService {
           userId: user.userId,
           password: user.password
         },
-        { withCredentials: true })
-        .map(response => {
+        { withCredentials: true }).pipe(
+        map(response => {
           registerResult.isSuccess = true;
           registerResult.error = '';
           return registerResult;
-        })
-        .catch(err => {
+        }),
+        catchError(err => {
           registerResult.error = err.error.error;
           registerResult.isSuccess = false;
 
-          return Observable.of(registerResult);
-        });
+          return observableOf(registerResult);
+        }),);
     } else {
       registerResult.error = 'Missing Information';
       registerResult.isSuccess = false;
 
-      return Observable.of(registerResult);
+      return observableOf(registerResult);
     }
   }
 
