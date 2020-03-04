@@ -24,11 +24,14 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
   public googleInit() {
     gapi.load('auth2', () => {
-      gapi.auth2.init({
-        client_id: '404042679583-o3ndihu0l83lje6q68408norqtp6ul6q.apps.googleusercontent.com',
+      console.log('Debug');
+
+      let auth = gapi.auth2.init({
+        client_id: '169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
         scope: 'profile email'
-      }).then((auth) => {
+      })
+      .then((auth) => {
         console.log(auth.isSignedIn.get())
 
         if (auth.isSignedIn && auth.isSignedIn.get()) {
@@ -38,6 +41,9 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
         this.auth2 = auth;
 
         this.attachSignin(document.getElementById('googleSignIn'));
+      })
+      .catch(error => {
+        console.error(error);
       });
     });
   }
