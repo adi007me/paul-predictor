@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileInfoComponent } from '../profile-info/profile-info.component';
+import { AuthService } from '../services/auth/auth.service';
+import { User } from '../services/auth/user';
 
 declare const gapi: any;
 
@@ -11,7 +13,7 @@ declare const gapi: any;
 })
 export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
-  constructor(private changeDetector: ChangeDetectorRef, private dialog: MatDialog) { }
+  constructor(private changeDetector: ChangeDetectorRef, private dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -19,21 +21,16 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
   public auth2: any;
   public loggedIn: boolean = false;
-  public profileImage: string = '';
-  public profileInfo: any = {};
+  public profileInfo: User;
 
   public googleInit() {
     gapi.load('auth2', () => {
-      console.log('Debug');
-
       let auth = gapi.auth2.init({
         client_id: '169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
         scope: 'profile email'
       })
       .then((auth) => {
-        console.log(auth.isSignedIn.get())
-
         if (auth.isSignedIn && auth.isSignedIn.get()) {
           this.loggedInSuccess.call(this, auth.currentUser.get());
         }
@@ -59,30 +56,16 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
   }
 
   loggedInSuccess(googleUser) {
-      console.log('inside loggedInSuccess', googleUser);
       let profile = googleUser.getBasicProfile();
 
-      //TODO : send token to BE service
-      console.log('Token || ' + googleUser.getAuthResponse().id_token);
+      const token = googleUser.getAuthResponse().id_token;
 
-      console.log('ID: ' + profile.getId());
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
+      this.authService.authenticate(token).subscribe((user: User) => {
+        this.profileInfo = user;
 
-      let profileInfo = {
-        id: profile.getId(),
-        name: profile.getName(),
-        imageUrl: profile.getImageUrl(),
-        email: profile.getEmail()
-      };
-
-      this.profileInfo = profileInfo;
-
-      this.loggedIn = true;
-      this.profileImage = profile.getImageUrl();
-
-      this.changeDetector.detectChanges();
+        this.loggedIn = true;
+        this.changeDetector.detectChanges();
+      });
   }
 
   accountInfoPopover() {
@@ -95,13 +78,15 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
     let component = this;
 
     this.auth2.signOut().then(function () {
-      console.log('User signed out.');
+      component.authService.logout();
 
-      component.profileInfo = {};
+      component.profileInfo = null;
 
       component.loggedIn = false;
 
       component.changeDetector.detectChanges();
+    }).catch(error => {
+      console.log(error);
     });
   }
 

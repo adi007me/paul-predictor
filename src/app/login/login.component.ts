@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   };
   registerView: Boolean;
   registerInfo: RegisterInfo;
-  
+
   constructor(public authProvider: AuthService) {
     this.registerInfo = {
       name: '',
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout() {
-    this.authProvider.logout();
+    //this.authProvider.logout();
     this.setMessage('', '');
   }
 
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
   register() {
     this.setMessage('', '');
 
-    if(!this.registerInfo || !this.registerInfo.userId || !this.registerInfo.password 
+    if(!this.registerInfo || !this.registerInfo.userId || !this.registerInfo.password
       || !this.registerInfo.confirmPassword || !this.registerInfo.name) {
       this.setMessage('Please provide all info', 'error');
     }
