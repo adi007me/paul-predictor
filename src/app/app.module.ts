@@ -20,6 +20,8 @@ import { HomeComponent } from './home/home.component';
 import { LeaderBoardComponent } from './leader-board/leader-board.component';
 import { LeaderBoardService } from './services/leader-board/leader-board.service';
 import { BetterListService } from './services/better-list/better-list.service';
+import { GoogleAuthComponent } from './google-auth/google-auth.component';
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { BetterListService } from './services/better-list/better-list.service';
     HeaderComponent,
     LoginComponent,
     HomeComponent,
-    LeaderBoardComponent
+    LeaderBoardComponent,
+    GoogleAuthComponent,
+    ProfileInfoComponent
   ],
   entryComponents: [
     LoginComponent

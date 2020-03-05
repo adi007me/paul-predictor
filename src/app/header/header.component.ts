@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../login/login.component';
+import { ProfileInfoComponent } from '../profile-info/profile-info.component';
 
 @Component({
   selector: 'paul-header',
@@ -15,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   accountPopover() {
-    let dialogRef = this.dialog.open(LoginComponent, {
+    let dialogRef = this.dialog.open(ProfileInfoComponent, {
       width: '250px'
     });
 

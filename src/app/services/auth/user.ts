@@ -4,6 +4,6 @@ export interface User {
     choices: Choice[],
     emailId: string,
     name: string,
-    profilePic: string,
-    userName : string,
+    pictureUrl: string,
+    userName : string
 }

@@ -1,5 +1,5 @@
 
-import {of as observableOf,  Observable } from 'rxjs';
+import {of as observableOf,  Observable, observable } from 'rxjs';
 
 import {map, catchError} from 'rxjs/operators';
 import { Injectable, EventEmitter } from '@angular/core';
@@ -20,62 +20,76 @@ export class AuthService {
   public loading: Boolean;
   public loggedIn: EventEmitter<User> = new EventEmitter<User>();
   public loggedOut: EventEmitter<Boolean> = new EventEmitter();
-  
+
   constructor(public http: HttpClient) {
-    this.http.get(Constants.BASE_URL + 'isauthenticated', {withCredentials: true}).subscribe(data => {
-      this.authStatus = Boolean(data);
-      this.loading = !this.authStatus
-      
-      if (this.authStatus && !this.user) {
-        this.getUser();
-      }
-    });
+    // this.http.get(Constants.BASE_URL + 'isauthenticated', {withCredentials: true}).subscribe(data => {
+    //   this.authStatus = Boolean(data);
+    //   this.loading = !this.authStatus
+
+    //   if (this.authStatus && !this.user) {
+    //     this.getUser();
+    //   }
+    // });
+  }
+
+  authenticate(token: string) : Observable<User> {
+    const url = Constants.BASE_URL + '/auth/loggedin?token=' + token;
+
+    return this.http.get<User>(url).pipe(map(user => {
+      this.user = user;
+
+      return user;
+    }));
   }
 
   login(userName: String, password: String) : Observable<Boolean> {
-    this.loading = true;
-    
-    return this.http.post<Boolean>(Constants.BASE_URL + 'login', 
-    {
-      username: userName, 
-      password: password
-    },
-    { withCredentials: true }
-    ).pipe(map(response => {
-      this.getUser();
-      this.authStatus = Boolean(response);
+  //   this.loading = true;
 
-      return Boolean(response);
-    }),catchError(err => {
-      this.loading = false;
-      return observableOf(false);
-    }),);
+  //   return this.http.post<Boolean>(Constants.BASE_URL + 'login',
+  //   {
+  //     username: userName,
+  //     password: password
+  //   },
+  //   { withCredentials: true }
+  //   ).pipe(map(response => {
+  //     this.getUser();
+  //     this.authStatus = Boolean(response);
+
+  //     return Boolean(response);
+  //   }),catchError(err => {
+  //     this.loading = false;
+  //     return observableOf(false);
+  //   }),);
+    return observableOf(true);
   }
 
   logout() {
-    this.loading = true;
+    const url = Constants.BASE_URL + '/auth/logout';
 
-    this.http.get<any>(Constants.BASE_URL + 'logout',
-    { withCredentials: true}
-    ).subscribe(data => {
-      this.authStatus = !data.status;
-      this.user = null;
-      this.loading = false;
+    this.http.get(url).subscribe();
+  //   this.loading = true;
 
-      this.loggedOut.emit(true);
-    });
+  //   this.http.get<any>(Constants.BASE_URL + 'logout',
+  //   { withCredentials: true}
+  //   ).subscribe(data => {
+  //     this.authStatus = !data.status;
+  //     this.user = null;
+  //     this.loading = false;
+
+  //     this.loggedOut.emit(true);
+  //   });
   }
 
-  private getUser() {
-    this.http.get<User>(Constants.BASE_URL + 'user',
-      { withCredentials: true}    
-      ).subscribe(user => {
-        this.user = user;
-        this.loading = false;
+  // private getUser() {
+  //   this.http.get<User>(Constants.BASE_URL + 'user',
+  //     { withCredentials: true}
+  //     ).subscribe(user => {
+  //       this.user = user;
+  //       this.loading = false;
 
-        this.loggedIn.emit(user);
-      });
-  }
+  //       this.loggedIn.emit(user);
+  //     });
+  // }
 
   register(user: RegisterInfo) : Observable<RegisterResult> {
     let registerResult: RegisterResult = {
@@ -83,31 +97,32 @@ export class AuthService {
       error: ''
     };
 
-    if(user.name && user.password && user.userId) {
-      return this.http.post(Constants.BASE_URL + 'register',
-        {
-          name: user.name,
-          userId: user.userId,
-          password: user.password
-        },
-        { withCredentials: true }).pipe(
-        map(response => {
-          registerResult.isSuccess = true;
-          registerResult.error = '';
-          return registerResult;
-        }),
-        catchError(err => {
-          registerResult.error = err.error.error;
-          registerResult.isSuccess = false;
+  //   if(user.name && user.password && user.userId) {
+  //     return this.http.post(Constants.BASE_URL + 'register',
+  //       {
+  //         name: user.name,
+  //         userId: user.userId,
+  //         password: user.password
+  //       },
+  //       { withCredentials: true }).pipe(
+  //       map(response => {
+  //         registerResult.isSuccess = true;
+  //         registerResult.error = '';
+  //         return registerResult;
+  //       }),
+  //       catchError(err => {
+  //         registerResult.error = err.error.error;
+  //         registerResult.isSuccess = false;
 
-          return observableOf(registerResult);
-        }),);
-    } else {
-      registerResult.error = 'Missing Information';
-      registerResult.isSuccess = false;
+  //         return observableOf(registerResult);
+  //       }),);
+  //   } else {
+  //     registerResult.error = 'Missing Information';
+  //     registerResult.isSuccess = false;
 
-      return observableOf(registerResult);
-    }
+  //     return observableOf(registerResult);
+  //   }
+    return observableOf(registerResult);
   }
 
 }
