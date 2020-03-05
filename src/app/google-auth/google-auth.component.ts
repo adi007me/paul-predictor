@@ -77,15 +77,17 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
   signOut() {
     let component = this;
 
-    this.auth2.signOut().then(function () {
-      component.authService.logout();
+    this.authService.logout().subscribe(() => {
+      this.auth2.signOut().then(function () {
+        component.profileInfo = null;
 
-      component.profileInfo = null;
+        component.loggedIn = false;
 
-      component.loggedIn = false;
-
-      component.changeDetector.detectChanges();
-    }).catch(error => {
+        component.changeDetector.detectChanges();
+      }).catch(error => {
+        console.log(error);
+      });
+    }, error => {
       console.log(error);
     });
   }
