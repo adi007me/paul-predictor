@@ -38,6 +38,8 @@ export class AuthService {
     return this.http.get<User>(url, { withCredentials: true }).pipe(map(user => {
       this.user = user;
 
+      this.loggedIn.emit(user);
+
       return user;
     }));
   }
