@@ -10,11 +10,11 @@ export class ChoicesService {
   constructor(private http: HttpClient) { }
 
   getChoices(): Observable<Choice[]> {
-    return this.http.get<Choice[]>(Constants.BASE_URL + 'choices', {withCredentials: true});
+    return this.http.get<Choice[]>(Constants.BASE_URL + '/choices', {withCredentials: true});
   }
 
   updateChoice(newChoice) {
-    return this.http.post<Choice>(Constants.BASE_URL + 'choices',
+    return this.http.post<Choice>(Constants.BASE_URL + '/choices',
       {
         choice: {
           match_id: newChoice.match_id,

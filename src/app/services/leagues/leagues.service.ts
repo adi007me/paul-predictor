@@ -11,7 +11,7 @@ export class LeaguesService {
   constructor(private http: HttpClient) { }
 
   getLeagues() : Observable<League[]>{
-    return this.http.get<League[]>(Constants.BASE_URL + 'leagues');
+    return this.http.get<League[]>(Constants.BASE_URL + '/leagues');
   }
 
   getSliderValue(match : Match) : Number {

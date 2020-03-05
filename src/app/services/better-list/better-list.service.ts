@@ -11,6 +11,6 @@ export class BetterListService {
   constructor(private http: HttpClient) { }
 
   getBetterList(matchId: String): Observable<Bets> {
-    return this.http.get<Bets>(Constants.BASE_URL + 'matchbets/' + matchId, {withCredentials: true});
+    return this.http.get<Bets>(Constants.BASE_URL + '/matchbets/' + matchId, {withCredentials: true});
   }
 }

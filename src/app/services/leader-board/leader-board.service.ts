@@ -10,6 +10,6 @@ export class LeaderBoardService {
   constructor(private http: HttpClient) { }
 
   getLeaderBoard() : Observable<LeaderBoard[]> {
-    return this.http.get<LeaderBoard[]>(Constants.BASE_URL + 'leaderboard', {withCredentials: true});
+    return this.http.get<LeaderBoard[]>(Constants.BASE_URL + '/leaderboard', {withCredentials: true});
   }
 }

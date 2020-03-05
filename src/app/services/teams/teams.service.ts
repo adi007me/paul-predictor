@@ -12,7 +12,7 @@ export class TeamsService {
   }
 
   getTeams() : Observable<Team[]>{
-    return this.http.get<Team[]>(Constants.BASE_URL + 'teams');
+    return this.http.get<Team[]>(Constants.BASE_URL + '/teams');
   }
 
 }
