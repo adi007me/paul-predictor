@@ -7,14 +7,17 @@
         </div>
         <div class="col-4 col-points">
             <span class="points" *ngIf="match.result && authService.authStatus" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
-              {{match.points >= 0 ? '+' : ''}}{{ match.points | number }} 
+              {{match.points >= 0 ? '+' : ''}}{{ match.points | number }}
             </span>
         </div>
-      </div>  
+      </div>
       <div class="row teams-info">
         <div class="col">
+          <div>
+            {{ match.match_id }}
+          </div>
           <div [ngClass]="{'winning-team': match.team1_id===match.result}">
-            
+
             <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
             <span>
               {{ match.team1_id }}
@@ -30,7 +33,7 @@
           <mat-slider min="0" max="2" step="1" [(ngModel)]="match.sliderValue" *ngIf="authService.authStatus"
             (change)="choiceChanged(match, $event)"
             disabled="{{match.choiceChangeDisabled}}"></mat-slider>
-          
+
           <span *ngIf="!authService.authStatus">vs</span>
         </div>
         <div class="col-1 col-bet">
@@ -47,11 +50,11 @@
           </div>
         </div>
       </div>
-      
+
     </div>
     <div class="container better-list">
-      <paul-betters-list *ngIf="match.choiceChangeDisabled && authService.authStatus" 
+      <paul-betters-list *ngIf="match.choiceChangeDisabled && authService.authStatus"
         [match]="match">
       </paul-betters-list>
-    </div>    
+    </div>
 </div>

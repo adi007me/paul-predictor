@@ -2,11 +2,12 @@
   <img id="googleSignIn" src='https://image.flaticon.com/teams/slug/google.jpg' />
 </a>
 
-<a id="btnProfile" *ngIf="loggedIn" class="profile-icon">
-  <img src='{{profileInfo.pictureUrl}}' (click)="accountInfoPopover()"/>
+<a id="btnProfile" *ngIf="loggedIn" class="profile-icon" (click)="signOut()">
+  <!-- <img src='{{profileInfo.pictureUrl}}' (click)="accountInfoPopover()"/> -->
+  <img src='{{profileInfo.pictureUrl}}' />
 </a>
 
-<a id="btnProfile" *ngIf="loggedIn" class="profile-icon" (click)="signOut()">
+<!-- <a id="btnProfile" *ngIf="loggedIn" class="profile-icon" (click)="signOut()">
   Sign Out
-</a>
+</a> -->
 
