@@ -25,6 +25,8 @@ export class MatchComponent implements OnInit {
   ngOnInit() {
     this.isSemiFinal = this.match.match_id.includes('sm');
     this.isFinal = this.match.match_id.includes('final');
+
+    this.match.displayId = this.match.match_id.replace('match', '#').replace('sm', 'Q').replace('final', 'F');
   }
 
   choiceChanged(match: Match, matSliderChange: MatSliderChange) {

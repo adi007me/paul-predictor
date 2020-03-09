@@ -14,5 +14,6 @@ export interface Match {
     choice: String,
     favTeam1: Number,
     favTeam2: Number,
-    sliderValue: Number
+    sliderValue: Number,
+    displayId: string
 }
