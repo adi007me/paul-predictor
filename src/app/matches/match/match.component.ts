@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Match } from '../../services/leagues/match';
 import { AuthService } from '../../services/auth/auth.service';
 import { ChoicesService } from '../../services/choices/choices.service';
@@ -11,20 +11,42 @@ import { LeaguesService } from '../../services/leagues/leagues.service';
   styleUrls: ['./match.component.less']
 })
 export class MatchComponent implements OnInit {
-  authStatus: Boolean;
+  loggedIn: Boolean;
   error: String;
   isSemiFinal: Boolean;
   isFinal: Boolean;
 
   @Input() match: Match;
 
-  constructor(public authService: AuthService, private choicesService: ChoicesService, private leagues : LeaguesService) {
+  constructor(public authService: AuthService,
+    private choicesService: ChoicesService,
+    private leagues : LeaguesService,
+    private changeDetector: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
     this.isSemiFinal = this.match.match_id.includes('sm');
     this.isFinal = this.match.match_id.includes('final');
+
+    this.match.displayId = this.match.match_id.replace('match', '#').replace('sm', 'Q').replace('final', 'F');
+
+    this.loggedIn = this.authService.authStatus;
+
+    this.authService.loggedIn.subscribe(user => {
+      this.changeDetector.detectChanges();
+    });
+
+    this.authService.loggedOut.subscribe(status => {
+      this.loggedIn = false;
+
+      this.changeDetector.detectChanges();
+    })
+
+    this.choicesService.choicesSet.subscribe(() => {
+      this.loggedIn = true;
+      this.changeDetector.detectChanges();
+    })
   }
 
   choiceChanged(match: Match, matSliderChange: MatSliderChange) {

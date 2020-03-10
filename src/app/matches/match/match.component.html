@@ -1,20 +1,23 @@
 <div class="paul-match">
   <div class="container match">
       <div class="row header" [ngClass]="{'header-semiFinal': isSemiFinal, 'header-Final': isFinal}">
-        <div class="col date">
-          {{ match.datetime | date:'EEEE' }}
-          , <strong>{{ match.datetime | date: 'MMMM d, y' }}</strong>
+        <div class="col col-1 match-display-id">
+          {{ match.displayId }}
         </div>
-        <div class="col-4 col-points">
-            <span class="points" *ngIf="match.result && authService.authStatus" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
-              {{match.points >= 0 ? '+' : ''}}{{ match.points | number }} 
+        <div class="col col-7 date">
+          {{ match.datetime | date:'EEE' }}
+          , <strong>{{ match.datetime | date: 'MMMM d h:mm a' }}</strong>
+        </div>
+        <div class="col col-3 col-points">
+            <span class="points" *ngIf="match.result && loggedIn" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
+              {{match.points >= 0 ? '+' : ''}}{{ match.points | number }}
             </span>
         </div>
-      </div>  
+      </div>
       <div class="row teams-info">
         <div class="col">
           <div [ngClass]="{'winning-team': match.team1_id===match.result}">
-            
+
             <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
             <span>
               {{ match.team1_id }}
@@ -27,11 +30,11 @@
           </span>
         </div>
         <div class="col-2 choice-slider">
-          <mat-slider min="0" max="2" step="1" [(ngModel)]="match.sliderValue" *ngIf="authService.authStatus"
+          <mat-slider min="0" max="2" step="1" [value]="match.sliderValue" *ngIf="loggedIn"
             (change)="choiceChanged(match, $event)"
             disabled="{{match.choiceChangeDisabled}}"></mat-slider>
-          
-          <span *ngIf="!authService.authStatus">vs</span>
+
+          <span *ngIf="!loggedIn">vs</span>
         </div>
         <div class="col-1 col-bet">
           <span class="bet" *ngIf="match.favTeam2 > -1">
@@ -47,11 +50,11 @@
           </div>
         </div>
       </div>
-      
+
     </div>
     <div class="container better-list">
-      <paul-betters-list *ngIf="match.choiceChangeDisabled && authService.authStatus" 
+      <paul-betters-list *ngIf="match.choiceChangeDisabled && loggedIn"
         [match]="match">
       </paul-betters-list>
-    </div>    
+    </div>
 </div>
