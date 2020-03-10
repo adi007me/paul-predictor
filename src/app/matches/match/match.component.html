@@ -9,7 +9,7 @@
           , <strong>{{ match.datetime | date: 'MMMM d h:mm a' }}</strong>
         </div>
         <div class="col col-3 col-points">
-            <span class="points" *ngIf="match.result && authService.authStatus" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
+            <span class="points" *ngIf="match.result && loggedIn" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
               {{match.points >= 0 ? '+' : ''}}{{ match.points | number }}
             </span>
         </div>
@@ -30,11 +30,11 @@
           </span>
         </div>
         <div class="col-2 choice-slider">
-          <mat-slider min="0" max="2" step="1" [(ngModel)]="match.sliderValue" *ngIf="authService.authStatus"
+          <mat-slider min="0" max="2" step="1" [value]="match.sliderValue" *ngIf="loggedIn"
             (change)="choiceChanged(match, $event)"
             disabled="{{match.choiceChangeDisabled}}"></mat-slider>
 
-          <span *ngIf="!authService.authStatus">vs</span>
+          <span *ngIf="!loggedIn">vs</span>
         </div>
         <div class="col-1 col-bet">
           <span class="bet" *ngIf="match.favTeam2 > -1">
@@ -53,7 +53,7 @@
 
     </div>
     <div class="container better-list">
-      <paul-betters-list *ngIf="match.choiceChangeDisabled && authService.authStatus"
+      <paul-betters-list *ngIf="match.choiceChangeDisabled && loggedIn"
         [match]="match">
       </paul-betters-list>
     </div>

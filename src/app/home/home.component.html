@@ -7,14 +7,14 @@
     <mat-tab-group *ngIf="!loading">
       <mat-tab label="Home">
 
-        <paul-match-list header="Locked Bet" [matches]="currentBet" 
+        <paul-match-list header="Locked Bet" [matches]="currentBet"
           *ngIf="currentBet && currentBet.length > 0">
         </paul-match-list>
-      
-        <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches" [displayOnly]="3" 
+
+        <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches" [displayOnly]="3"
           *ngIf="upcomingMatches && upcomingMatches.length > 0">
         </paul-match-list>
-      
+
         <paul-match-list header="Recent Matches" [matches]="recentMatches" [displayOnly]="3"
           *ngIf="recentMatches && recentMatches.length > 0">
         </paul-match-list>

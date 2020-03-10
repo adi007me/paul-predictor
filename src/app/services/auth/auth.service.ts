@@ -34,9 +34,14 @@ export class AuthService {
 
   authenticate(token: string) : Observable<User> {
     const url = Constants.BASE_URL + '/auth/loggedin?token=' + token;
+    this.loading = true;
 
     return this.http.get<User>(url, { withCredentials: true }).pipe(map(user => {
       this.user = user;
+
+      this.authStatus = Boolean(user);
+
+      this.loading = false;
 
       this.loggedIn.emit(user);
 
@@ -67,19 +72,17 @@ export class AuthService {
 
   logout() {
     const url = Constants.BASE_URL + '/auth/logout';
+    this.loading = true;
 
-    return this.http.get(url, { withCredentials: true });
-  //   this.loading = true;
+    return this.http.get(url, { withCredentials: true }).pipe(response => {
+      this.authStatus = false;
+      this.user = null;
+      this.loading = false;
 
-  //   this.http.get<any>(Constants.BASE_URL + 'logout',
-  //   { withCredentials: true}
-  //   ).subscribe(data => {
-  //     this.authStatus = !data.status;
-  //     this.user = null;
-  //     this.loading = false;
+      this.loggedOut.emit(true);
 
-  //     this.loggedOut.emit(true);
-  //   });
+      return response;
+    });
   }
 
   // private getUser() {

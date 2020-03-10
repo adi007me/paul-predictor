@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Match } from '../services/leagues/match';
 import { HttpClient } from '@angular/common/http';
 import { LeaguesService } from '../services/leagues/leagues.service';
@@ -24,10 +24,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
       private leagues: LeaguesService, private teams: TeamsService, private authService: AuthService,
-        private choicesService: ChoicesService) {
+        private choicesService: ChoicesService,
+        private changeDetector: ChangeDetectorRef) {
 
     this.loading = true;
-    
+
     leagues.getLeagues().subscribe(leagues => {
       let matches = leagues[0].matches;
 
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
         this.upcomingMatches = this.matches.filter(m => !m.result && !m.choiceChangeDisabled);
         this.completedMatches = this.matches.filter(m => m.result);
         this.recentMatches = this.matches.filter(m => m.result);
-        this.recentMatches.sort(function(a, b){ 
+        this.recentMatches.sort(function(a, b){
           let dt1 = new Date(b.datetime);
           let dt2 = new Date(a.datetime);
 
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit {
         this.authService.loggedIn.subscribe(() => {
           this.handleLogin();
         });
-    
+
         this.authService.loggedOut.subscribe(() => {
           this.handleLogout();
         });
@@ -74,7 +75,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   handleLogout() {
@@ -85,10 +86,14 @@ export class HomeComponent implements OnInit {
       match.points = 0;
       match.sliderValue = 1;
     });
+
+    this.changeDetector.detectChanges();
   }
 
   handleLogin() {
     this.getChoices();
+
+    this.changeDetector.detectChanges();
   }
 
   getChoices() {
@@ -97,13 +102,16 @@ export class HomeComponent implements OnInit {
 
       this.choicesArray.forEach(choice => {
         let match = this.matches.find(match => match.match_id === choice.match_id);
-        
+
         if (match) {
           match.choice = choice.choice;
           match.points = choice.points;
           match.sliderValue = this.leagues.getSliderValue(match);
         }
       });
-    });    
+
+      this.choicesService.choicesSetPerMatch();
+      this.changeDetector.detectChanges();
+    });
   }
 }

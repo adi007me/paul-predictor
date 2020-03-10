@@ -65,7 +65,7 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
         this.loggedIn = true;
         this.changeDetector.detectChanges();
-      });
+      }, err => console.log('Login Error', err));
   }
 
   accountInfoPopover() {
