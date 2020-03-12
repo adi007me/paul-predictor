@@ -25,7 +25,11 @@
         {{i + 1}}
       </div>
       <div class="col-5">
-        {{ leaderRow.name }}
+        <img [src]="leaderRow.pictureUrl" class="picture-url">
+        
+        <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }">
+            {{ leaderRow.name }}
+        </span>
       </div>
       <div class="col-2">
         {{ leaderRow.totalPoints | number:'0.1-1' }}

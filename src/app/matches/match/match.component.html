@@ -6,7 +6,7 @@
         </div>
         <div class="col col-7 date">
           {{ match.datetime | date:'EEE' }}
-          , <strong>{{ match.datetime | date: 'MMMM d h:mm a' }}</strong>
+          , <strong>{{ match.datetime | date: 'MMM d h:mm a' }}</strong>
         </div>
         <div class="col col-3 col-points">
             <span class="points" *ngIf="match.result && loggedIn" [ngClass]="{'positive-points': match.points >= 0, 'negative-points': match.points < 0 }">
