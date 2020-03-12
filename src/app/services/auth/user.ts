@@ -5,5 +5,5 @@ export interface User {
     emailId: string,
     name: string,
     pictureUrl: string,
-    userName : string
+    userId : string
 }
