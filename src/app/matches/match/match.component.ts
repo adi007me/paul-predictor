@@ -75,4 +75,22 @@ export class MatchComponent implements OnInit {
       matchToUpdate.sliderValue = this.leagues.getSliderValue(matchToUpdate);
     });
   }
+
+  formatLabel() {
+    let component = this;
+
+    return (value: number) => {
+      if (value == 1) {
+        return "Draw";
+      }
+
+      if (value == 0) {
+        return component.match.team1_id;
+      }
+
+      if (value == 2) {
+        return component.match.team2_id;
+      }
+    }
+  }
 }
