@@ -21,7 +21,12 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
   public auth2: any;
   public loggedIn: boolean = false;
-  public profileInfo: User;
+  public profileInfo: User = {choices:[],
+                              emailId:'',
+                              name:'',
+                              pictureUrl:'',
+                              userId:''};
+  public popout: boolean = false;
 
   public googleInit() {
     gapi.load('auth2', () => {
@@ -55,6 +60,18 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
       });
   }
 
+  public displayProfile() {
+    this.popout = true;
+
+    this.changeDetector.detectChanges();
+  }
+
+  public closePopup() {
+    this.popout = false;
+
+    this.changeDetector.detectChanges();
+  }
+
   loggedInSuccess(googleUser) {
       let profile = googleUser.getBasicProfile();
 
@@ -76,6 +93,7 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
   signOut() {
     let component = this;
+    this.popout = false;
 
     this.authService.logout().subscribe(() => {
       this.auth2.signOut().then(function () {
