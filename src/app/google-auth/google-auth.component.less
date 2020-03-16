@@ -9,3 +9,41 @@
 .hidden {
   display: none;
 }
+
+.popout {
+  float: right;
+  z-index: 100;
+  position: absolute;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  background: white;
+  border: 1px solid lightgray;
+  visibility: hidden;
+  transition: visibility 0s, opacity 0.5s linear;
+  opacity: 0;
+
+  &.display-popup {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .user-info {
+    display: flex;
+  }
+
+  .profile-image {
+    border-radius: 100%;
+  }
+
+  .actions {
+    align-self: center;
+  }
+
+  .name {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
