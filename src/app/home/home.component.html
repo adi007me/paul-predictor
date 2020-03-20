@@ -4,29 +4,17 @@
       <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
     </div>
 
-    <mat-tab-group *ngIf="!loading">
-      <mat-tab label="Home">
+    <div *ngIf="!loading">
+      <paul-match-list header="Locked Bet" [matches]="currentBet"
+        *ngIf="currentBet && currentBet.length > 0">
+      </paul-match-list>
 
-        <paul-match-list header="Locked Bet" [matches]="currentBet"
-          *ngIf="currentBet && currentBet.length > 0">
-        </paul-match-list>
+      <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches" [displayOnly]="3"
+        *ngIf="upcomingMatches && upcomingMatches.length > 0">
+      </paul-match-list>
 
-        <paul-match-list header="Upcoming Matches" [matches]="upcomingMatches" [displayOnly]="3"
-          *ngIf="upcomingMatches && upcomingMatches.length > 0">
-        </paul-match-list>
-
-        <paul-match-list header="Recent Matches" [matches]="recentMatches" [displayOnly]="3"
-          *ngIf="recentMatches && recentMatches.length > 0">
-        </paul-match-list>
-
-      </mat-tab>
-      <mat-tab label="Matches">
-        <paul-match-list header="All Matches" [matches]="matches">
-        </paul-match-list>
-      </mat-tab>
-      <mat-tab label="Leaders Board">
-        <paul-leader-board>
-        </paul-leader-board>
-      </mat-tab>
-    </mat-tab-group>
+      <paul-match-list header="Recent Matches" [matches]="recentMatches" [displayOnly]="3"
+        *ngIf="recentMatches && recentMatches.length > 0">
+      </paul-match-list>
+    </div>
 </div>

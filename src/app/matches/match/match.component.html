@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="row teams-info">
-        <div class="col">
+        <div class="team1">
           <div [ngClass]="{'winning-team': match.team1_id===match.result}">
 
             <img src="{{'/assets/icons/' + match.team1_id.toLowerCase() + '.png'}}" class="team-logo" />
@@ -24,12 +24,12 @@
             </span>
           </div>
         </div>
-        <div class="col-1 col-bet">
+        <div>
           <span class="bet" *ngIf="match.favTeam1 > -1">
             ({{match.favTeam1}})
           </span>
         </div>
-        <div class="col-2 choice-slider">
+        <div>
           <mat-slider min="0" max="2" step="1" [value]="match.sliderValue" *ngIf="loggedIn"
             (change)="choiceChanged(match, $event)"
             disabled="{{match.choiceChangeDisabled}}"
@@ -38,12 +38,12 @@
 
           <span *ngIf="!loggedIn">vs</span>
         </div>
-        <div class="col-1 col-bet">
+        <div>
           <span class="bet" *ngIf="match.favTeam2 > -1">
             ({{match.favTeam2}})
           </span>
         </div>
-        <div class="col">
+        <div class="team2">
           <div [ngClass]="{'winning-team': match.team2_id===match.result}">
             <img src="{{'/assets/icons/' + match.team2_id.toLowerCase() + '.png'}}" class="team-logo" />
             <span>

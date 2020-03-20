@@ -7,6 +7,11 @@
 
         .row {
             align-items: center;
+            justify-content: space-around;
+
+            .team1, .team2 {
+              min-width: 70px;
+            }
 
             &.header {
                 background-color: lightgray;
@@ -60,15 +65,9 @@
             text-align: center;
         }
 
-        .col-bet {
-            padding: 0;
-            padding-left: 5px;
-            padding-right: 5px;
+        .bet {
+            font-size: 10px;
             font-weight: bold;
-
-            .bet {
-                font-size: 10px;
-            }
         }
 
         .row.teams-info {
@@ -88,10 +87,6 @@
         mat-slider {
             min-width: 0;
             width: 60px;
-        }
-
-        .col-2.choice-slider {
-            padding: 0;
         }
     }
 

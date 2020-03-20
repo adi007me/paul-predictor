@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LeaderBoardService } from '../services/leader-board/leader-board.service';
 import { LeaderBoard } from '../services/leader-board/leader-board';
 import { AuthService } from '../services/auth/auth.service';
@@ -11,8 +11,10 @@ import { AuthService } from '../services/auth/auth.service';
 export class LeaderBoardComponent implements OnInit {
   leaderBoardResult: LeaderBoard[];
   currentUserId:string = null;
+  loading: Boolean = true;
 
-  constructor(private leaderBoardService: LeaderBoardService, private authService: AuthService) { }
+  constructor(private leaderBoardService: LeaderBoardService, private authService: AuthService,
+      private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     if(this.authService.authStatus) {
@@ -31,6 +33,8 @@ export class LeaderBoardComponent implements OnInit {
   getLeaderBoard() {
     this.leaderBoardService.getLeaderBoard().subscribe(result => {
         this.leaderBoardResult = result;
+        this.loading = false;
+        this.changeDetector.detectChanges();
     });
   }
 }

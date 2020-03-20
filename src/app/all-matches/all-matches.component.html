@@ -1,0 +1,8 @@
+<div class="paul-all-matches">
+  <div *ngIf="loading" class="loading">
+    <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
+  </div>
+
+  <paul-match-list header="All Matches" [matches]="matches" *ngIf="!loading">
+  </paul-match-list>
+</div>

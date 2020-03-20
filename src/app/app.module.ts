@@ -22,6 +22,7 @@ import { LeaderBoardService } from './services/leader-board/leader-board.service
 import { BetterListService } from './services/better-list/better-list.service';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { AllMatchesComponent } from './all-matches/all-matches.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     HomeComponent,
     LeaderBoardComponent,
     GoogleAuthComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    AllMatchesComponent
   ],
   entryComponents: [
     LoginComponent

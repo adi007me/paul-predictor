@@ -1,9 +1,26 @@
-<div class="app-header">
-  <img src='/assets/icons/octopus-icon.png' class="app-header-octopus-icon" />
+<div class="paul-header">
+  <div class="app-header">
+    <img src='/assets/icons/octopus-icon.png' class="app-header-octopus-icon" />
 
-  <span class="app-header-title">
-    Paul the Predictor
-  </span>
+    <span class="app-header-title">
+      Paul the Predictor
+    </span>
 
-  <paul-google-auth class="app-header-account-icon" class="google-auth"></paul-google-auth>
+    <paul-google-auth class="app-header-account-icon" class="google-auth"></paul-google-auth>
+  </div>
+
+  <nav>
+    <a [title]="'Home'" [routerLink]="['/']" routerLinkActive="active" class="nav-link" [routerLinkActiveOptions]="{exact:
+true}">
+      Home
+    </a>
+
+    <a [title]="'Matches'" [routerLink]="['/matches']" routerLinkActive="active" class="nav-link">
+      Matches
+    </a>
+
+    <a [title]="'Standings'" [routerLink]="['/leader-board']" routerLinkActive="active" class="nav-link">
+      Standings
+    </a>
+  </nav>
 </div>

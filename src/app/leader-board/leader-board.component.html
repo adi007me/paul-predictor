@@ -1,5 +1,9 @@
 <div class="paul-leader-board">
-  <div class="container">
+  <div *ngIf="loading" class="loading">
+    <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
+  </div>
+
+  <div class="container" *ngIf="!loading">
     <div class="row table-header">
       <div class="col-1">
         #
@@ -26,7 +30,7 @@
       </div>
       <div class="col-5">
         <img [src]="leaderRow.pictureUrl" class="picture-url">
-        
+
         <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }">
             {{ leaderRow.name }}
         </span>

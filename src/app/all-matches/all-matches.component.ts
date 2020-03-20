@@ -1,41 +1,29 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Match } from '../services/leagues/match';
-import { HttpClient } from '@angular/common/http';
 import { LeaguesService } from '../services/leagues/leagues.service';
-import { TeamsService } from '../services/teams/teams.service';
+import { Match } from '../services/leagues/match';
 import { AuthService } from '../services/auth/auth.service';
-import { Choice } from '../services/choices/choice';
 import { ChoicesService } from '../services/choices/choices.service';
-import { League } from '../services/leagues/league';
+import { Choice } from '../services/choices/choice';
 
 @Component({
-  selector: 'paul-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  selector: 'paul-all-matches',
+  templateUrl: './all-matches.component.html',
+  styleUrls: ['./all-matches.component.less']
 })
-export class HomeComponent implements OnInit {
+export class AllMatchesComponent implements OnInit {
+
   matches: Match[];
-  completedMatches: Match[];
-  upcomingMatches: Match[];
-  recentMatches: Match[];
-  currentBet: Match[];
+  loading: Boolean = true;
   choicesArray: Choice[];
 
-  loading: Boolean;
+  constructor(private leagues: LeaguesService, private authService: AuthService,
+      private choicesService: ChoicesService,
+      private changeDetector: ChangeDetectorRef) { }
 
-  constructor(private httpClient: HttpClient,
-      private leagues: LeaguesService, private teams: TeamsService, private authService: AuthService,
-        private choicesService: ChoicesService,
-        private changeDetector: ChangeDetectorRef) {
-
-    this.loading = true;
-
-    leagues.getLeague().subscribe(league => {
+  ngOnInit(): void {
+    this.leagues.getLeague().subscribe(league => {
+      console.log('league.matches', league.matches);
       this.matches = league.matches;
-      this.currentBet = league.currentBet
-      this.upcomingMatches = league.upcomingMatches;
-      this.completedMatches = league.completedMatches;
-      this.recentMatches = league.recentMatches;
 
       this.authService.loggedIn.subscribe(() => {
         this.handleLogin();
@@ -45,17 +33,12 @@ export class HomeComponent implements OnInit {
         this.handleLogout();
       });
 
-      if(authService.authStatus) {
+      if(this.authService.authStatus) {
         this.getChoices();
       }
 
       this.loading = false;
-
-    }, err => console.log(err));
-  }
-
-  ngOnInit() {
-
+    });
   }
 
   handleLogout() {
@@ -94,4 +77,5 @@ export class HomeComponent implements OnInit {
       this.changeDetector.detectChanges();
     });
   }
+
 }

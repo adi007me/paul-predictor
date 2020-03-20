@@ -5,6 +5,7 @@ import { MatchListComponent } from './match-list/match-list.component';
 import { AppMaterialModule } from '../app-material.module';
 import { FormsModule } from '@angular/forms';
 import { BettersListComponent } from './betters-list/betters-list.component';
+import { PredictionsComponent } from './predictions/predictions.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import { BettersListComponent } from './betters-list/betters-list.component';
     AppMaterialModule,
     FormsModule
   ],
-  declarations: [MatchComponent, MatchListComponent, BettersListComponent],
+  declarations: [MatchComponent, MatchListComponent, BettersListComponent, PredictionsComponent],
   exports: [MatchListComponent]
 })
 export class MatchesModule { }
