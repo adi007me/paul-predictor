@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { Match } from '../../services/leagues/match';
 import { Bets } from '../../services/better-list/bets';
 import { BetterListService } from '../../services/better-list/better-list.service';
@@ -15,7 +15,7 @@ export class BettersListComponent implements OnInit {
 
   @Input() match: Match;
 
-  constructor(private betterList : BetterListService) { }
+  constructor(private betterList : BetterListService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loading = false;
@@ -29,10 +29,12 @@ export class BettersListComponent implements OnInit {
     }
 
     this.loading = true;
+    this.changeDetector.detectChanges();
 
     this.betterList.getBetterList(this.match.match_id).subscribe(bets => {
       this.bets = bets;
       this.loading = false;
+      this.changeDetector.detectChanges();
     });
   }
 }
