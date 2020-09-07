@@ -21,7 +21,8 @@
               "src/assets",
               "src/favicon.ico",
               "src/Staticfile",
-              "src/index.php"
+              "src/index.php",
+              "src/composer.json"
             ],
             "styles": [
               "src/styles.less"
