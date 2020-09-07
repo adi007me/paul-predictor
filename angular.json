@@ -20,7 +20,8 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "src/Staticfile"
+              "src/Staticfile",
+              "src/index.php"
             ],
             "styles": [
               "src/styles.less"
