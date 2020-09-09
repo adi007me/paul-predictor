@@ -32,16 +32,22 @@ export class HomeComponent implements OnInit {
     leagues.getLeagues().subscribe(leagues => {
       let matches = leagues[0].matches;
 
+      const tbdTeam = {
+        name: 'TBD',
+        shortName: 'TBD',
+        iconPath: 'tbd',
+      }
+
       this.matches = matches;
       let currentTime = new Date();
       this.teams.getTeams().subscribe(teams => {
         this.matches.forEach(match => {
-          match.team1 = teams.find(team => team.shortName === match.team1_id);
-          match.team2 = teams.find(team => team.shortName === match.team2_id);
+          match.team1 = teams.find(team => team.shortName === match.team1_id) || tbdTeam;
+          match.team2 = teams.find(team => team.shortName === match.team2_id) || tbdTeam;
 
           let matchTimeAddHour = new Date(match.datetime);
           matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 1);
-          match.choiceChangeDisabled = (matchTimeAddHour < currentTime);
+          match.choiceChangeDisabled = (matchTimeAddHour < currentTime) || match.team1_id === 'TBD' || match.team2_id === 'TBD';
           match.sliderValue = 1;
         });
 
