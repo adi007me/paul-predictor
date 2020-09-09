@@ -3,9 +3,9 @@ import { environment } from "../../environments/environment";
 export class Constants {
     public static get BASE_URL(): string {
         if (environment.production) {
-            const location = window.location;
-            
-            return `https://${location[0] + '-api'}.${location[1]}.${location[2]}`;
+            const locations = window.location.href.slice(0,-1).split('.');
+
+            return `${locations[0] + '-api'}.${locations[1]}.${locations[2]}`;
         } else {
             return 'http://localhost:3000';
         }
