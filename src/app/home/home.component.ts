@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
 
           let matchTimeAddHour = new Date(match.datetime);
           matchTimeAddHour.setHours(matchTimeAddHour.getHours() - 1);
-          match.choiceChangeDisabled = (matchTimeAddHour < currentTime) || match.team1_id === 'TBD' || match.team2_id === 'TBD';
+          match.choiceChangeDisabled = (matchTimeAddHour < currentTime);
           match.sliderValue = 1;
         });
 
