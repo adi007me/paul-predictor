@@ -55,7 +55,7 @@
 
     </div>
     <div class="container better-list">
-      <paul-betters-list *ngIf="match.choiceChangeDisabled && loggedIn"
+      <paul-betters-list *ngIf="match.choiceChangeDisabled && loggedIn && match.team1_id !== 'TBD' && match.team2_id !== 'TBD'"
         [match]="match">
       </paul-betters-list>
     </div>
