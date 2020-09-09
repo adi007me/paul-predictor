@@ -32,7 +32,7 @@
         <div class="col-2 choice-slider">
           <mat-slider min="0" max="2" step="1" [value]="match.sliderValue" *ngIf="loggedIn"
             (change)="choiceChanged(match, $event)"
-            disabled="{{match.choiceChangeDisabled || match.team1_id !== 'TBD' || match.team2_id !== 'TBD'}}"
+            disabled="{{match.choiceChangeDisabled || match.team1_id === 'TBD' || match.team2_id === 'TBD'}}"
             thumbLabel
             [displayWith]="formatLabel()"></mat-slider>
 
