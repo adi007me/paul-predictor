@@ -1,0 +1,72 @@
+<div class="help">
+  <ul>
+    <li>
+      Click on top right (G) icon to sign in with your google id.
+      Its OAuth, none of your information is shared by google with this app except EmailId, First Name, Last Name, Avataar
+    </li>
+    <li>
+      Select your prediction for the match <b>atleast 1 hour before</b> the match time
+    </li>
+    <li>
+      You can select predictions for all matches using <b>"Matches"</b> tab
+    </li>
+    <li>
+      Match's prediction selection will be <b>locked 1 hour before the match time</b>
+    </li>
+    <li>
+      Default choice is "Draw" which is not possible in IPL, hence it will result in loss of points.
+      i.e. "Draw" is looser regardless of match result. In IPL, if match ends up in a tie then super over decides the winner.
+    </li>
+    <li>
+      For each <b>incorrect</b> prediction <b>10 points</b> will be deducted for league matches, <b>25 points</b> for Semi Finals/Eliminators, <b>50 points</b> for Final
+    </li>
+    <li>
+      For each correct prediction points will be given based on number of loosers.
+      Formula to calculate points for winners is <b>(# of loosers * matchPoint)/(# of winners)</b>.
+      Here, matchPoint = 10 for League match, 25 for Semi Finals/Eliminators, 50 for Final
+    </li>
+    <li>
+      Example:
+      <ul>
+        <li>
+          Lets assume there are 10 people playing
+        </li>
+        <li>
+          Match is CSK vs MI on Sept-19-2020 at 7:30 IST
+        </li>
+        <li>
+          3 people are betting on CSK, 5 on MI and 2 on "Draw" (2 people didnt select any option)
+        </li>
+        <li>
+          Match is locked on Sept-19-2020 at 6:30 IST. After this you cannot change your prediction for this match
+        </li>
+        <li>
+          Formula to calculate points for winners is (# of loosers * 10 points)/(# of winners).
+          Loosers will get -10 for league match, -25 for semi finals and eliminators, -50 for final
+        </li>
+        <li>
+          Now, if CSK wins, then 3 people betting on CSK will get (7*10/3) points. i.e.
+          Here, loosers are people betting on MI and "Draw" who will get -10 points each (for league match)
+        </li>
+        <li>
+          If MI wins, then 5 people betting on MI will get (5*10/5) points. i.e. (# of loosers * 10 points)/(# of winners).
+          Here, loosers are people betting on CSK and "Draw" who will get -10 points each (for league match)
+        </li>
+      </ul>
+    </li>
+    <li>
+      <b>This is just for Fun. So only points, no money involved :).</b>
+    </li>
+    <li>
+      The name "Paul" is inspired by the famous <a href="https://en.wikipedia.org/wiki/Paul_the_Octopus">Paul octopus</a>.
+      Accurate predictions in FIFA wordlcup brought him worldwide attention.
+    </li>
+    <li>
+      The source code is on <b>github</b> and developed by <b>adi007me</b>.
+      Link to Source - <a href="https://github.com/adi007me/paul-predictor">https://github.com/adi007me/paul-predictor</a>
+    </li>
+    <li>
+      Please feel free to open issues on github for suggestion/bugs. Also you are most welcome to contribute :)
+    </li>
+  </ul>
+</div>
