@@ -8,25 +8,12 @@ import { AuthService } from '../services/auth/auth.service';
   templateUrl: './leader-board.component.html',
   styleUrls: ['./leader-board.component.less']
 })
-export class LeaderBoardComponent implements OnInit {
+export class LeaderBoardComponent {
   leaderBoardResult: LeaderBoard[];
   currentUserId:string = null;
 
   constructor(private leaderBoardService: LeaderBoardService, private authService: AuthService) { }
 
-  ngOnInit() {
-    if(this.authService.authStatus) {
-      this.getLeaderBoard();
-
-      this.currentUserId = this.authService.user.userId;
-    }
-
-    this.authService.loggedIn.subscribe(() => {
-      this.getLeaderBoard();
-
-      this.currentUserId = this.authService.user.userId;
-    });
-  }
 
   getLeaderBoard() {
     this.leaderBoardService.getLeaderBoard().subscribe(result => {
