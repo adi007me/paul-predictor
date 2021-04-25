@@ -1,4 +1,13 @@
 # PaulPredictor
+This is a prediction game that allows people to predict the winner of a match and get points based on predictions
+
+## Local Setup
+1. To setup this application locally, please setup [the backend first](https://github.com/adi007me/paul-webapi)
+2. Clone the repo locally
+3. Run ng serve
+<pre>
+ng serve
+</pre>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.4.
 
