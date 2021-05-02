@@ -16,4 +16,46 @@
     .bold {
         font-weight: bold;
     }
+
+    .loading {
+        mat-spinner {
+            margin: 0 auto;
+        }
+    }
+
+    .stats-data {
+        border-top: solid 2px gray;
+        margin-top: 10px;
+
+        .close-button {
+            text-align: center;
+        }
+
+        .user-stats-header {
+            display: flex;
+            align-items: center;
+
+            .photo {
+                margin-right: 20px;
+                
+                img {
+                    width: 115px;
+                    border-radius: 80%;
+                }
+            }
+        }
+
+        .basic-stats {
+            font-family: cursive;
+
+            :first-child {
+                display: flex;
+            }
+
+            .stat {
+                display: inline-block;
+                min-width: 75px;
+            }
+        }
+    }
 }

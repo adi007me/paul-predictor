@@ -5,4 +5,5 @@ export interface LeaderBoard {
     wins: Number,
     losses: Number,
     totalMatches: Number
+    _id: String,
 }

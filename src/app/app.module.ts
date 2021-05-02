@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -23,6 +24,8 @@ import { BetterListService } from './services/better-list/better-list.service';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { HelpComponent } from './help/help.component';
+import { UserStatsComponent } from './user-stats/user-stats.component';
+import { UserStatsService } from './services/user-stats/user-stats.service';
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import { HelpComponent } from './help/help.component';
     LeaderBoardComponent,
     GoogleAuthComponent,
     ProfileInfoComponent,
-    HelpComponent
+    HelpComponent,
+    UserStatsComponent
   ],
   entryComponents: [
     LoginComponent
@@ -46,7 +50,8 @@ import { HelpComponent } from './help/help.component';
     AppMaterialModule,
     FormsModule,
     HttpClientModule,
-    MatchesModule
+    MatchesModule,
+    ChartsModule,
   ],
   providers: [
     AuthService,
@@ -54,7 +59,8 @@ import { HelpComponent } from './help/help.component';
     LeaguesService,
     TeamsService,
     LeaderBoardService,
-    BetterListService
+    BetterListService,
+    UserStatsService
   ],
   bootstrap: [AppComponent]
 })

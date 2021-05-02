@@ -1,47 +1,73 @@
 <div class="paul-leader-board">
   <div class="container">
-    <div class="row table-header">
-      <div class="col-1">
-        #
-      </div>
-      <div class="col-5">
-        Name
-      </div>
-      <div class="col-2">
-        P
-      </div>
-      <div class="col-1">
-        W
-      </div>
-      <div class="col-1">
-        L
-      </div>
-      <div class="col-1">
-        M
-      </div>
+    <div *ngIf="loading" class="loading">
+      <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
     </div>
-    <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index">
-      <div class="col-1">
-        {{i + 1}}
+    <div *ngIf="statsData" class="stats-data">
+      <div class="close-button">
+        <button mat-icon-button (click)="showStats()" aria-label="Close Stats">
+          <mat-icon (click)="showStats()">close</mat-icon>
+        </button>
       </div>
-      <div class="col-5">
-        <img [src]="leaderRow.pictureUrl" class="picture-url">
-        
-        <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }">
-            {{ leaderRow.name }}
-        </span>
+      <div class="user-stats-header">
+        <div class="photo">
+          <img [src]="statsData.pictureUrl">
+        </div>
+        <div class="basic-stats">
+          <div><span class="stat">Name:</span> <span>{{ statsData.name }}</span></div>
+          <div><span class="stat">Rank:</span> <span>{{ rank }}</span></div>
+          <div><span class="stat">Points:</span> <span>{{ statsData.totalPoints | number:'0.1-1' }}</span></div>
+          <div><span class="stat">Matches:</span> <span>{{ statsData.totalMatches }}</span></div>
+          <div><span class="stat">Wins:</span> <span>{{ statsData.wins }}</span></div>
+          <div><span class="stat">Losses:</span> <span>{{ statsData.losses }}</span></div>
+        </div>
       </div>
-      <div class="col-2">
-        {{ leaderRow.totalPoints | number:'0.1-1' }}
-      </div>
-      <div class="col-1">
-        {{ leaderRow.wins }}
-      </div>
-      <div class="col-1">
-        {{ leaderRow.losses }}
-      </div>
-      <div class="col-1">
-        {{ leaderRow.totalMatches }}
+      <paul-user-stats [userId]="statsData._id"></paul-user-stats>
+    </div>
+    <div *ngIf="!loading" [hidden]="statsData">
+      <div class="row table-header">
+        <div class="col-1">
+          #
+        </div>
+        <div class="col-5">
+          Name
+        </div>
+        <div class="col-2">
+          P
+        </div>
+        <div class="col-1">
+          W
+        </div>
+        <div class="col-1">
+          L
+        </div>
+        <div class="col-1">
+          M
+        </div>
+      </div>    
+      <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index" (click)="showStats(leaderRow, i + 1)">
+        <div class="col-1">
+          {{i + 1}}
+        </div>
+        <div class="col-5">
+          <img [src]="leaderRow.pictureUrl" class="picture-url">
+          
+          <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }">
+              {{ leaderRow.name }}
+          </span>
+        </div>
+        <div class="col-2">
+          {{ leaderRow.totalPoints | number:'0.1-1' }}
+        </div>
+        <div class="col-1">
+          {{ leaderRow.wins }}
+        </div>
+        <div class="col-1">
+          {{ leaderRow.losses }}
+        </div>
+        <div class="col-1">
+          {{ leaderRow.totalMatches }}
+        </div>
       </div>
     </div>
   </div>

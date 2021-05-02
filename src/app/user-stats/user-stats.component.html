@@ -1,0 +1,77 @@
+<div class="user-stats">
+  <div class="container">
+    <div *ngIf="loading" class="loading">
+      <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>
+    </div>
+    <div *ngIf="error" class="error">
+      Error occured while fetching user stats
+    </div>
+    <div class="main" *ngIf="!error && !loading">
+      <div class="stat">
+        <b>
+          Predictions count by teams:
+        </b>
+        <canvas baseChart
+          width="500px"
+          height="300px"
+          [data]="pieChartData" 
+          [labels]="pieChartLabels" 
+          [chartType]="pieChartType"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          [legend]="pieChartLegend"
+          [intersect]="false"
+        >
+        </canvas>
+      </div>
+
+      <div class="stat">
+        <b>
+          Points won by teams:
+        </b>
+        <canvas baseChart 
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+      </div>
+
+      <div class="stat">
+        <b>
+          Trend:
+        </b>
+        <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
+
+      <div class="stat">
+        <b>
+          Finished matches:
+        </b>
+        <div class="row header">
+          <div class="col-1">#</div>
+          <div class="col-5">Match</div>
+          <div class="col-3">Choice</div>
+          <div class="col-2">Points</div>
+        </div>
+        
+        <div class="row" *ngFor="let stat of userStats, let i = index">
+          <div class="col-1">{{i+1}}</div>
+          <div class="col-5">{{ stat.team1_id }} vs {{ stat.team2_id }}</div>
+          <div class="col-3">{{ stat.points === 0 ? 'NA' : stat.choice }}</div>
+          <div class="col-2" [ngClass]="{'green': stat.points > 0, 'red': stat.points < 0}">{{ stat.points | number:'0.1-1' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
