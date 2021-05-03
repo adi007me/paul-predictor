@@ -45,14 +45,14 @@
           M
         </div>
       </div>    
-      <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index" (click)="showStats(leaderRow, i + 1)">
+      <div class="row" *ngFor="let leaderRow of leaderBoardResult; let i = index">
         <div class="col-1">
           {{i + 1}}
         </div>
-        <div class="col-5">
+        <div class="col-5" (click)="showStats(leaderRow, i + 1)">
           <img [src]="leaderRow.pictureUrl" class="picture-url">
           
-          <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }">
+          <span [ngClass]="{ 'bold': currentUserId === leaderRow.userId }" class="name">
               {{ leaderRow.name }}
           </span>
         </div>
