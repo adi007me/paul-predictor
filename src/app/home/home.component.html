@@ -1,4 +1,12 @@
 <div class="paul-home">
+    <div class="warning" *ngIf="isSuspended">
+      <div class="header">
+        IPL 2021 is suspended indefinitely
+      </div>
+      <div class="text">
+        It was fun. We will restart once and if IPL 2021 starts.
+      </div>
+    </div>
 
     <div *ngIf="loading" class="loading">
       <mat-spinner [diameter]="20" [color]="gray"></mat-spinner>

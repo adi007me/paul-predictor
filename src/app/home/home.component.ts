@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   recentMatches: Match[];
   currentBet: Match[];
   choicesArray: Choice[];
+  isSuspended: Boolean = false;
 
   loading: Boolean;
 
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit {
     this.loading = true;
 
     leagues.getLeagues().subscribe(leagues => {
+      this.isSuspended = leagues[0].isSuspended;
       let matches = leagues[0].matches;
 
       const tbdTeam = {

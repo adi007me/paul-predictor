@@ -5,5 +5,6 @@ export interface League {
     shortName: String,
     startDate: Date,
     endDate: Date,
-    matches: Match[]
+    matches: Match[],
+    isSuspended: Boolean,
 }
