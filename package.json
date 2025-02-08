@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "set-ssl": "export NODE_OPTIONS=--openssl-legacy-provider;",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
