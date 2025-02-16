@@ -3,8 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProfileInfoComponent } from '../profile-info/profile-info.component';
 import { AuthService } from '../services/auth/auth.service';
 import { User } from '../services/auth/user';
+import { useAnimation } from '@angular/animations';
 
 declare const gapi: any;
+declare const window: any;
 
 @Component({
   selector: 'paul-google-auth',
@@ -16,7 +18,7 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
   constructor(private changeDetector: ChangeDetectorRef, private dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
-
+    window.handleCredentialResponse = this.handleCredentialResponse.bind(this)
   }
 
   public auth2: any;
@@ -28,36 +30,37 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
                               userId:''};
   public popout: boolean = false;
 
-  public googleInit() {
-    gapi.load('auth2', () => {
-      let auth = gapi.auth2.init({
-        client_id: '169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        scope: 'profile email'
-      })
-      .then((auth) => {
-        if (auth.isSignedIn && auth.isSignedIn.get()) {
-          this.loggedInSuccess.call(this, auth.currentUser.get());
-        }
+  // public googleInit() {
+  //   gapi.load('auth2', () => {
+  //     let auth = gapi.auth2.init({
+  //       client_id: '169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com',
+  //       cookiepolicy: 'single_host_origin',
+  //       scope: 'profile email'
+  //     })
+  //     .then((auth) => {
+  //       if (auth.isSignedIn && auth.isSignedIn.get()) {
+  //         this.loggedInSuccess.call(this, auth.currentUser.get());
+  //       }
 
-        this.auth2 = auth;
+  //       this.auth2 = auth;
 
-        this.attachSignin(document.getElementById('googleSignIn'));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    });
-  }
+  //       this.attachSignin(document.getElementById('googleSignIn'));
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  //   });
+  // }
 
-  public attachSignin(element) {
-    const component = this;
-
-    this.auth2.attachClickHandler(element, {},
-      this.loggedInSuccess.bind(this), function (error) {
-        // TODO Show error in dialog
-        alert(JSON.stringify(error, undefined, 2));
-      });
+  public handleCredentialResponse(res: any) {
+    try {
+      if (res.credential) {
+        this.loggedInSuccess(res.credential);
+      }
+    }
+    catch(err) {
+      console.log(err)
+    }
   }
 
   public displayProfile() {
@@ -72,17 +75,15 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
     this.changeDetector.detectChanges();
   }
 
-  loggedInSuccess(googleUser) {
-      let profile = googleUser.getBasicProfile();
+  loggedInSuccess(credential: any) {
+    const token = credential;
 
-      const token = googleUser.getAuthResponse().id_token;
+    this.authService.authenticate(token).subscribe((user: User) => {
+      this.profileInfo = user;
 
-      this.authService.authenticate(token).subscribe((user: User) => {
-        this.profileInfo = user;
-
-        this.loggedIn = true;
-        this.changeDetector.detectChanges();
-      }, err => console.log('Login Error', err));
+      this.loggedIn = true;
+      this.changeDetector.detectChanges();
+    }, err => console.log('Login Error', err));
   }
 
   accountInfoPopover() {
@@ -91,26 +92,26 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
     });
   }
 
-  signOut() {
-    let component = this;
-    this.popout = false;
+  // signOut() {
+  //   let component = this;
+  //   this.popout = false;
 
-    this.authService.logout().subscribe(() => {
-      this.auth2.signOut().then(function () {
-        component.profileInfo = null;
+  //   this.authService.logout().subscribe(() => {
+  //     this.auth2.signOut().then(function () {
+  //       component.profileInfo = null;
 
-        component.loggedIn = false;
+  //       component.loggedIn = false;
 
-        component.changeDetector.detectChanges();
-      }).catch(error => {
-        console.log(error);
-      });
-    }, error => {
-      console.log(error);
-    });
-  }
+  //       component.changeDetector.detectChanges();
+  //     }).catch(error => {
+  //       console.log(error);
+  //     });
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
   ngAfterViewInit() {
-    this.googleInit();
+    // this.googleInit();
   }
 }

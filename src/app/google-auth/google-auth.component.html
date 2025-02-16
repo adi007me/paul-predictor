@@ -1,6 +1,18 @@
-<a [ngClass]="{ 'hidden': loggedIn }" class="profile-icon">
-  <img id="googleSignIn" src='https://image.flaticon.com/teams/slug/google.jpg' />
-</a>
+<div id="g_id_onload"
+  data-client_id="169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com"
+  data-callback="handleCredentialResponse">
+</div>
+
+<div [ngClass]="{ 'hidden': loggedIn }">
+  <div class="g_id_signin"
+    data-type="icon"
+    data-size="medium"
+    data-theme="outline"
+    data-text="sign_in_with"
+    data-shape="rectangular"
+    data-logo_alignment="left">
+  </div>
+</div>
 
 <a id="btnProfile" *ngIf="loggedIn" class="profile-icon" (click)="displayProfile()">
   <img src='{{profileInfo.pictureUrl}}' />
@@ -16,9 +28,9 @@
   </div>
 
   <div class="actions">
-    <button mat-button (click)="signOut()">
+    <!-- <button mat-button (click)="signOut()">
       Logout
-    </button>
+    </button> -->
 
     <button mat-button (click)="closePopup()">
       Close
