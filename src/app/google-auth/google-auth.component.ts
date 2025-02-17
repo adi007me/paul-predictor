@@ -18,7 +18,20 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
   constructor(private changeDetector: ChangeDetectorRef, private dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
-    window.handleCredentialResponse = this.handleCredentialResponse.bind(this)
+    // window.handleCredentialResponse = this.handleCredentialResponse.bind(this)
+    // console.log('callback set')
+    window.google.accounts.id.initialize({
+      client_id: "169706668013-mvf7ct27e5n709k27cdqd2ostnvoe1qm.apps.googleusercontent.com",
+      callback: this.handleCredentialResponse.bind(this),
+      auto_select: false,
+      cancel_on_tap_outside: true
+    })
+
+    window.google.accounts.id.renderButton(document.getElementById("google-button"), {
+      theme: "outline", size: "large", width: "100%"
+    })
+
+    window.google.accounts.id.prompt((notification:any) => {console.log(notification)})
   }
 
   public auth2: any;
@@ -53,6 +66,7 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
   // }
 
   public handleCredentialResponse(res: any) {
+    console.log(res)
     try {
       if (res.credential) {
         this.loggedInSuccess(res.credential);
@@ -113,5 +127,6 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     // this.googleInit();
+    
   }
 }
