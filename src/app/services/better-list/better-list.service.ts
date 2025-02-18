@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Bets } from './bets';
 import { HttpClient } from '@angular/common/http';
 import { Constants } from '../services.constants';
-import { StringifyOptions } from 'querystring';
 import { Observable } from 'rxjs';
 
 @Injectable()
