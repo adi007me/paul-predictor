@@ -28,7 +28,7 @@ export class GoogleAuthComponent implements OnInit, AfterViewInit {
     })
 
     window.google.accounts.id.renderButton(document.getElementById("google-button"), {
-      theme: "outline", size: "large", width: "100%"
+      theme: "outline", size: "medium", shape: 'rectangular', type: 'icon'
     })
 
     window.google.accounts.id.prompt((notification:any) => {console.log(notification)})
